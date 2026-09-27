@@ -1,1 +1,5 @@
-console.log("Hello,Learn Web Development!");
+let a;
+
+a = 5;
+
+console.log(a);
