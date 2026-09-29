@@ -18,9 +18,95 @@
 <br>
 <br>
 
+# 블록문
+> 0개 이상의 문을 중괄호로 묶은것.
+
+```jsx
+
+{
+	statement_1;
+	statement_2;
+	...
+	statement_n;
+}
+
+
+//example
+
+{
+	console.log("this");
+	console.log("is");
+	console.log("block statement.");
+}
+```
+# if문
+
+```jsx
+if (조건식1) {
+	//조건식1이 true이면, 이 코드 블록 실행
+} else if (조건식2) {
+	//조건식1 false이고 조건식2가 true일 경우
+} ...
+  else if (조건식n) {
+	//조건식 1,2,..,n-1이 false 이고 조건식 n이 true일 경우
+} else {
+	//모든 조건식이 false 일 경우
+}
+
+```
+> else if는 최상위 조건(if)이 false인 경우, 다음 조건식으로 판별하여 실행한다.
+[else는 모든 조건이 false인 경우 예외적으로 실행함.]
+
+```jsx
+var number1 = 10;
+var number2 = 10;
+
+var condition_1 = number1 === number2;
+var condition_2 = number1 > number2;
+
+if (condition_1) {
+    console.log(condition_1); //boolen으로 평가 되기 때문이다.
+} else {
+    console.log(condition_1);
+}
+
+if (condition_2) {
+    console.log(condition_2); //boolen으로 평가 되기 때문이다.
+} else {
+    console.log(condition_2);
+}
+
+if (condition_2) {
+    console.log("X");
+} else if (condition_1) {
+    console.log("else if example.");
+} else {
+    console.log("모든 조건 거짓일 경우 실행.");
+}
+
+if (1) {
+    console.log("1은 암묵적 타입 변환으로 true로 평가된다.");
+} else {
+    console.log("무조건 true");
+}
+
+if (0) {
+    console.log("0은 암묵적 타입 변환으로 false로 평가된다.")
+} else {
+    console.log("false");
+}
+```
+
 # switch문
 
 > `swtich 문` 은 주어진 표현식을 평가하여 그 `값과 일치하는 표현식`을 갖는 `case 문` 으로 실행 흐름을 옮긴다.
+
+1.case는 switch문에서 실행을 시작할 위치를 
+지정한다. 일치하는 case를 찾으면 그 지점부터
+실행한다.
+2.default문은 모든 case와 일치 하지 않았을때 마지막으로 실행 할 문이다.
+[default문은 제외하여 실행 해도 된다.]
+3.break문은 해당 코드 블록을 벗어나 실행을 멈추는 문이다.
 
 ```jsx
 swtich (표현식) {
@@ -58,8 +144,8 @@ swtich (month) {
 }
 ```
 
-- 만약 `if - else` 문으로 해결할 수 있다면 → `switch` 문보다 `if - else` 문을 사용하는 편이 좋다.
-- 조건식이 너무 많아서 `if - else` 문보다 `switch` 문을 사용했을 때 `가독성이 더 좋다면` → `switch` 문을 사용하는 편이 좋다.
+> break가 없는 한, 표현식과 일치한 case문 부터 마지막 case, default문 까지 모든 명령문을 수행하는 역할을 하게 된다. 이 현상을 풀스루(full-through)라 한다.
+>따라서 해당 되는 case문 까지만 실행하고 싶으면 break를 넣어줘야 switch문을 종료하고 탈출 할 수 있다.
 
 <br>
 <br>
@@ -67,96 +153,166 @@ swtich (month) {
 # 반복문
 
 ```jsx
-// 💡 반목문을 대체할 수 있는 다양한 Javascript 기능이 있다. ( 일단은 인지정도만 할 것 )
+/**
+ * 반복문(loop statement)
+ */
 
-자바스크립트는 "배열 순회 시" 사용하는 = forEach() 메서드
-"객체의 프로퍼티를 열거 시" 사용하는 = for - in 문
-"ES6에서 도입된 이터러블을 순회 시" 사용하는 = for - of 문
-```
-
-```jsx
-while 문 = 반복 횟수가 "불명확"할 때 주로 사용
-for 문 = 반복 횟수가 "명확"할 때 주로 사용
-```
-
-```jsx
-// 💡 for 문 무한루프
-// 초기식 | 조건식 | 증감식 을 아무것도 작성하지 않을 경우 -> while(true) 와 같다.
-
-for( ; ; ) { ... }
-```
-
-<br>
-<br>
-
-# break 문
-
-> `break` 문은 `코드 블록` 을 탈출하는 것
-
-- 더 정확히는 `레이블 문` , `반목문(for, for - in, for - of, while, do - while)` 또는 `switch 문`
-
-```jsx
-/*
-💡 레이블 문(label statement) = "식별자"가 붙은 문을 말한다.
-
-+ 레이블 문은 프로그램 실행 순서를 제어하는 데 사용
-+ switch 문의 case 문과 default 문도 사실 "레이블 문"
-+ 레이블 문을 탈출 시 -> break 문에 식별자를 지정 필요
-
+/**for문  
+ * 
+ * for (초기화구문; 조건문; 증감문) {
+ *    statement;
+ * }
+ * 
+ * 조건식이 참일동안 statement 문을 반복 실행한다.
 */
 
-// 1️⃣ foo 라는 레이블 식별자가 붙은 문
-foo: console.log("foo");
-
-// 2️⃣ foo라는 식별자가 붙은 레이블 블록문
-foo: {
-  console.log(1);
-  break foo; //  foo 레이블 블록문을 탈출한다.
-  console.log(2);
+for (var i = 1; i <= 10; i++ ) {
+    console.log(i);
 }
-```
 
-- 레이블 문은 중첩된 for 문 `외부로 탈출` 할 때 유용하지만 그 외에는 `일반적으로 권장하지 않는다.`
-- 레이블 문 사용시 → 프로그램의 흐름이 복잡해져서 가독성이 나빠지고 오류를 발생시킬 가능성이 높아지기 때문 ( 존재 정도만 인지할 것 )
+for (var i = 1; i >= 0; i--) {
+    console.log(i);
+}
+//무한 루프
+// for (;;) {
+//     console.log("this is infinity loop.");
+// }
 
-<br>
-<br>
+/** --> 초기문,조건문과 증감문 모두 옵션이므로 
+반드시 사용 할 필요는 없다.
+다만, 정상적인 활용을 위하여 외부에서 반드시 제어와 선언을 해줘야 한다.
+*/
 
-# Continue 문
+//조건식이 없을경우,js엔진에서 true으로 인식한다.
 
-> `continue 문` 은 반복문의 코드 블록 실행을 `현 시점에서 중단하고` , `반복문의 증감식으로 실행 흐름을 이동시킨다.` ( break 문처럼 반복문을 탈출하지는 않는다. )
+var a = 0;
+for (; a !== 10; ) {
+    console.log(a);
+    a++;
+}
 
-- `if 문` 내에서 `실행해야 할 코드가 한줄` 이라면 → 반복문 내에서 `continue 문`을 사용할 필요는 없다.
-- 하지만, `if 문` 내에서 `실행햐야 할 코드가 길다면` → `들여쓰기가 한 단계 더 깊어지므로` , `continue 문`을 사용하는 편이 가독성이 더 좋을 수 있다.
+// for (var a = 0; a !== 10; a++) {
+//     console.log(a);
+// }
 
-```jsx
-// if문 내에서 여러 코드 작성해야 할 경우 -> continue 문을 사용하지 않았을 경우
-var arr = [1, 2, 3, 4, 5];
-var target = 3;
-var count = 0;
+/**
+ * while문
+ * 
+ * while (조건식) {
+ *    statement;
+ * }
+ * 
+ * --> 조건식이 true일때만, statement문을 반복 실행한다.
+ */
 
-for (var i = 0; i < arr.length; i++) {
-  // arr[i] 가 target 이하라면 count 증감
-  if (arr[i] <= target) {
-    count++;
-    // code...
-    // code...
-    // code...
+var number = 0;
+
+while (number < 10) {
+    console.log(number);
+    number = number + 2;
+} // 0 2 4 6 8
+
+//while (1) {
+//  console.log("this is infinity loop.");
+//}
+
+//1은 불리언 강제 타입 변환 하면 true로 판별되기 때문이다.
+
+var number2 = 0;
+
+while (true) {
+    console.log(number2)
+    if (number2 === 67) {
+        break;
+    }
+    number2++;
+}
+
+/**
+ *do while문
+ * 
+ * do {
+ *     statement;
+ * } while (조건문);
+ * 
+ * --> do문을 처음으로 실행한뒤 조건문이 true인 동안
+ * 계속 do문을 반복 실행한다.
+ * [do문은 최소 1회 이상 실행되어야 한다.]
+ */
+
+var number3 = 0;
+
+do {
+    number3 += 1;
+    console.log(number3);
+} while (number3 < 5);
+
+/**
+ * break문
+ * 
+ * label문,반복문,switch문 등 코드 블록을 탈출할때 사용.
+ * 
+ */
+
+/**label문 
+ * 
+ * keyword_label: code_block or loop_statement
+ * 
+ * --> 프로그램 순서를 제어하거나 중첩된 반복 루프에서
+ * 전체 루프를 탈출 하고 싶을때 사용한다.
+ * 탈출: break keyword_label;
+ * 
+ * 일반적으로 label문은 프로그램 흐름이 복잡해지고 가독성이 나빠져
+ * 일반적으로 사용 권장하지 않는다.
+ * 
+*/
+
+example_1: {
+    console.log("Hello,World!");
+    break example_1;
+    console.log("Done.");
+}
+
+example_2: for (var i = 2; i < 10; i++) {
+    for (var j = 1; j < 10; j++) {
+        if (i*j === 54) {
+            break example_2; //전체 반복 루프 탈출.
+        }
+        console.log(`${i} x ${j} = ${i*j}`);
+    }
+}
+
+/**
+ * continue문
+ * 
+ * 반복문 또는 레이블문의 코드 블록 내에서 현시점 실행을 중단하고 곧 바로
+ * 코드 블록 또는 바깥 반복문(처음 반복문)처음 부분부터 다시 실행한다.
+ */
+
+i = 0;
+n = 0; // 1 + 2 + 4 + 5
+while (i < 5) {
+  i++;
+  if (i == 3) {
+    continue;
   }
+  n += i;
 }
 
-// if문 내에서 여러 코드 작성해야 할 경우 -> continue 문을 사용한 경우 -> depth가 하나 줄어들었다.
-var arr = [1, 2, 3, 4, 5];
-var target = 3;
-var count = 0;
+console.log(n);
 
-for (var i = 0; i < arr.length; i++) {
-  // arr[i] 가 target 초과이면 count 증감하지 않는다.
-  if (arr[i] > target) continue;
-
-  count++;
-  // code...
-  // code...
-  // code...
+checkiandj: while (i < 4) {
+  console.log(i);
+  i += 1;
+  checkj: while (j > 4) {
+    console.log(j);
+    j -= 1;
+    if (j % 2 == 0) {
+      continue checkj;
+    }
+    console.log(j + " is odd.");
+  }
+  console.log("i = " + i);
+  console.log("j = " + j);
 }
 ```
